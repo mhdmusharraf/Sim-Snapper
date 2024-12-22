@@ -24,6 +24,27 @@ const Register = () => {
         background: "#caf0f6",
       }}
     >
+       <div className="absolute top-28 left-6">
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 rounded-full bg-[#03045e] text-white hover:bg-opacity-90"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+        </button>
+      </div>
       {/* Form Section */}
       <main className="flex-1 w-full p-4 mt-6">
         <motion.form
@@ -101,7 +122,7 @@ const Register = () => {
 
           {/* Captured Image and Open Camera Button */}
           <div className="mb-6 flex flex-col items-center sm:flex-row sm:justify-between">
-            {capturedImage ? (
+            {capturedImage && (
               <div className="mb-4 sm:mb-0 sm:mr-6 flex justify-center">
                 <img
                   src={capturedImage}
@@ -109,10 +130,6 @@ const Register = () => {
                   className="w-40 h-40 object-cover border border-gray-400 rounded-md shadow-md"
                 />
               </div>
-            ) : (
-              <p className="text-sm text-gray-600 sm:mr-6">
-                No image captured. Please use the camera to capture an image.
-              </p>
             )}
             <button
               type="button"
