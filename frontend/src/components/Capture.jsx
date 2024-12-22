@@ -1,9 +1,14 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { FiArrowLeft } from "react-icons/fi";
+import { useCapture } from "../../CaptureContext/CaptureContext";
 
 const Capture = () => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
+  const { saveImage } = useCapture();
 
   const startCamera = async () => {
     try {
@@ -49,23 +54,44 @@ const Capture = () => {
     stopCamera();
   };
 
+  const handleTakeAgain = () => {
+    setImage(null);
+    startCamera();
+  };
+
+  const handleSave = () => {
+    if (image) {
+      saveImage(image); // Save the image in the context
+      alert("Image saved successfully!");
+      navigate("/register");
+    }
+  };
+
+  const handleBack = () => {
+    stopCamera();
+    navigate("/register");
+  };
+
   React.useEffect(() => {
     startCamera();
-    return () => stopCamera();
+    return () => {
+      stopCamera(); // Ensure camera stops when component unmounts
+    };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-[rgb(63,176,97)] via-[rgb(29,181,176)] via-[rgb(22,153,174)] to-[rgb(0,184,255)] text-white">
-      <header className="w-full p-4 flex justify-center bg-white">
-        <img
-          src="/SLT_Mobitel.jpg"
-          alt="SLTMobitel Logo"
-          className="h-16 object-contain"
-        />
-      </header>
+      {/* Back Arrow Button */}
+      <button
+        onClick={handleBack}
+        className="self-start m-4 p-2 text-lg  rounded-full bg-[#03045e] text-white hover:bg-opacity-90 flex items-center"
+        // className="p-2 rounded-full bg-[#03045e] text-white hover:bg-opacity-90"
+      >
+        <FiArrowLeft className="text-white" />
+      </button>
 
       <main className="flex-1 w-full p-4">
-        <h1 className="text-center text-2xl font-bold mb-6">Live Camera</h1>
+        <h1 className="text-center text-2xl font-bold mb-6">Capture Your Image</h1>
         <div className="flex flex-col items-center">
           <div className="relative bg-black rounded-lg shadow-md overflow-hidden">
             <video
@@ -84,12 +110,30 @@ const Capture = () => {
             )}
           </div>
 
-          <button
-            onClick={captureImage}
-            className="mt-6 px-6 py-2 bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-800"
-          >
-            Capture
-          </button>
+          {/* Buttons */}
+          {!image ? (
+            <button
+              onClick={captureImage}
+              className="mt-6 px-6 py-2 bg-[#03045e] hover:bg-opacity-90 text-white font-semibold rounded-lg shadow-md "
+            >
+              Capture
+            </button>
+          ) : (
+            <div className="flex space-x-4 mt-6">
+              <button
+                onClick={handleTakeAgain}
+                className="px-6 py-2 bg-[#03045e]  hover:bg-opacity-90 text-white font-semibold rounded-lg shadow-md "
+              >
+                Take Again
+              </button>
+              <button
+                onClick={handleSave}
+                className="px-6 py-2 bg-[#03045e]  hover:bg-opacity-90 text-white font-semibold rounded-lg shadow-md "
+              >
+                Save
+              </button>
+            </div>
+          )}
         </div>
       </main>
 
