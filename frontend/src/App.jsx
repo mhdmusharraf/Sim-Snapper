@@ -10,9 +10,9 @@ import Process from "./components/Process";
 
 const App = () => {
   return (
-    <div className="min-h-screen" 
-    style={{ backgroundColor: "#caf0f6" }}>
-      <Header/>
+    <div className="min-h-screen" style={{ backgroundColor: "#caf0f6" }}>
+      <Header />
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Register />} />
