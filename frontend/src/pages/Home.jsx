@@ -1,6 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { FaMoon } from "react-icons/fa";
+import { TbSignal4G } from "react-icons/tb";
+import { motion } from "framer-motion"; // Import motion
 
 const packages = [
   { id: 1, name: "512MB", price: "Rs. 58", validity: "7 Days" },
@@ -19,56 +21,104 @@ const packages = [
 const Home = () => {
   const navigate = useNavigate();
 
-  const handleRedirect = () => {
-    navigate("/register");
+  const handleRedirect = (path) => {
+    navigate(path);
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0.2, y: 100 }}
-      transition={{ duration: 1 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="min-h-screen flex flex-col items-center bg-gradient-to-br from-[rgb(63,176,97)] via-[rgb(29,181,176)] via-[rgb(22,153,174)] to-[rgb(0,184,255)] text-white"
-    >
-      {/* Header */}
-      <header className="w-full p-4 flex justify-center bg-white">
-        <img
-          src="/SLT_Mobitel.jpg"
-          alt="SLTMobitel Logo"
-          className="h-24 object-contain"
-        />
-      </header>
-
-      {/* Package Cards */}
-      <main className="flex-1 w-full p-4">
-        <h1 className="text-center text-2xl font-bold mb-6">
+    <div className="flex flex-col items-center relative">
+      <div
+        className="flex-1 w-full p-6 rounded-lg mt-10"
+        style={{
+          backgroundColor: "#475492",
+          maxWidth: "900px",
+          minHeight: "400px",
+        }}
+      >
+        <h1
+          className="text-center text-2xl font-bold mb-6"
+          style={{ color: "#caf0f6" }}
+        >
           Choose Your Package
         </h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        {/* Package Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {packages.map((pkg) => (
-            <div
+            <motion.div
               key={pkg.id}
-              className="p-4 bg-white text-blue-900 rounded-lg shadow-md hover:shadow-lg cursor-pointer w-64"
-              onClick={handleRedirect}
+              className="relative p-4 rounded-lg shadow-md cursor-pointer"
+              style={{
+                backgroundColor: "#03045e",
+                color: "#caf0f6",
+                maxWidth: "250px", // Adjusting card width
+              }}
+              onClick={() => handleRedirect("/register")}
+              initial={{ opacity: 0, y: 20 }} 
+              animate={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.5 }} 
+              whileHover={{
+                scale: 1.05, 
+                backgroundColor: "#262d79", 
+                boxShadow: "0 4px 10px rgba(0, 0, 0, 0.3)", 
+              }}
             >
+              {/* Icons container positioned top-right */}
+              <div className="absolute top-5 right-2 flex flex-col items-center space-y-1">
+                <FaMoon
+                  className="text-cyan-500"
+                  title="Anytime Data"
+                  size={18}
+                />
+                <TbSignal4G className="text-green-500" title="4G" size={18} />
+              </div>
               <h2 className="text-xl font-bold">{pkg.name}</h2>
               <p className="text-lg font-medium">{pkg.price}</p>
-              <p className="text-sm text-gray-500">{pkg.validity}</p>
-            </div>
+              <p className="text-sm" style={{ color: "#caf0f6" }}>
+                {pkg.validity}
+              </p>
+            </motion.div>
           ))}
         </div>
-      </main>
 
-      {/* Footer */}
+        {/* Process Button */}
+        <div className="mt-6 md:absolute md:bottom-20 md:right-20">
+          <button
+            onClick={() => handleRedirect("/process")}
+            className="w-20 h-20 flex items-center justify-center text-white font-semibold rounded-full shadow-md hover:bg-opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105"
+            style={{ backgroundColor: "#03045e", color: "#caf0f6" }}
+            
+          >
+            Go To Process
+          </button>
+        </div>
 
-      <button
-        onClick={handleRedirect}
-        className="px-6 py-2 bg-blue-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-800"
-      >
-        Continue Without Packages
-      </button>
-    </motion.div>
+        {/* Button */}
+        <div className="mt-6 md:absolute md:bottom-6 md:right-6">
+          <button
+            onClick={() => handleRedirect("/register")}
+            className="flex items-center justify-center px-6 py-2 text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 transition-all duration-300 ease-in-out transform hover:scale-105"
+            style={{ backgroundColor: "#03045e", color: "#caf0f6" }}
+          >
+            Continue Without Packages
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              className="w-5 h-5 ml-2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
   );
 };
 

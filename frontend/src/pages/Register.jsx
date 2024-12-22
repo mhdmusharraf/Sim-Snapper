@@ -16,14 +16,14 @@ const Register = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center bg-gradient-to-br from-[rgb(63,176,97)] via-[rgb(29,181,176)] via-[rgb(22,153,174)] to-[rgb(0,184,255)] text-white">
-      {/* Header */}
+      {/* Header
       <header className="w-full p-4 flex justify-center bg-white">
         <img
           src="/SLT_Mobitel.jpg"
           alt="SLTMobitel Logo"
           className="h-16 object-contain"
         />
-      </header>
+      </header> */}
 
       {/* Form Section */}
       <main className="flex-1 w-full p-4">
