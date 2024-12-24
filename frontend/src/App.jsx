@@ -7,6 +7,7 @@ import Confirmation from "./pages/Confirmation";
 import Capture from "./components/Capture";
 import Header from "./components/Header";
 import Process from "./components/Process";
+import CardPayment from "./components/CardPayment";
 
 const App = () => {
   return (
@@ -19,6 +20,7 @@ const App = () => {
         <Route path="/confirm" element={<Confirmation />} />
         <Route path="/capture" element={<Capture />} />
         <Route path="/process" element={<Process />} />
+        <Route path="/card-payment" element={<CardPayment />} />
       </Routes>
     </div>
   );

@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMoon } from "react-icons/fa";
 import { TbSignal4G } from "react-icons/tb";
-import { motion } from "framer-motion"; // Import motion
+import { motion } from "framer-motion"; 
 
 const packages = [
   { id: 1, name: "512MB", price: "Rs. 58", validity: "7 Days" },
