@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const userRoutes = require('./routes/userRoutes');
+const paymentRoutes = require('./routes/paymentRoutes'); // Import payment routes
 
 const app = express();
 
@@ -20,6 +21,7 @@ mongoose
 
 // Routes
 app.use('/api/users', userRoutes);
+// app.use('/api/card-payment', paymentRoutes); 
 
 // Start server
 const PORT = process.env.PORT || 5000;

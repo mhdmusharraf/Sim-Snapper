@@ -11,7 +11,9 @@ const Register = () => {
   // State for form inputs
   const [name, setName] = useState(localStorage.getItem("name") || "");
   const [dob, setDob] = useState(localStorage.getItem("dob") || "");
-  const [passportNumber, setPassportNumber] = useState(localStorage.getItem("passportNumber") || "");
+  const [passportNumber, setPassportNumber] = useState(
+    localStorage.getItem("passportNumber") || ""
+  );
 
   useEffect(() => {
     // Save data to localStorage whenever form values change
@@ -24,8 +26,8 @@ const Register = () => {
     e.preventDefault();
 
     const base64ToBlob = (base64) => {
-      const byteString = atob(base64.split(',')[1]);
-      const mimeString = base64.split(',')[0].split(':')[1].split(';')[0];
+      const byteString = atob(base64.split(",")[1]);
+      const mimeString = base64.split(",")[0].split(":")[1].split(";")[0];
       const byteArray = new Uint8Array(byteString.length);
 
       for (let i = 0; i < byteString.length; i++) {
@@ -38,18 +40,22 @@ const Register = () => {
     const imageBlob = base64ToBlob(capturedImage);
 
     const formData = new FormData();
-    formData.append('name', name);
-    formData.append('dob', dob);
-    formData.append('passportNumber', passportNumber);
-    formData.append('image', imageBlob, 'image.jpg');
+    formData.append("name", name);
+    formData.append("dob", dob);
+    formData.append("passportNumber", passportNumber);
+    formData.append("image", imageBlob, "image.jpg");
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
 
       // Store the user ID (from the response) in localStorage or state
-      localStorage.setItem('userId', response.data.user._id);
+      localStorage.setItem("userId", response.data.user._id);
 
       alert(response.data.message);
       navigate("/confirm");
@@ -63,11 +69,28 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center" style={{ background: "#caf0f6" }}>
+    <div
+      className="min-h-screen flex flex-col items-center"
+      style={{ background: "#caf0f6" }}
+    >
       <div className="absolute top-28 left-6">
-        <button onClick={() => navigate("/")} className="p-2 rounded-full bg-[#03045e] text-white hover:bg-opacity-90">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="w-6 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+        <button
+          onClick={() => navigate("/")}
+          className="p-2 rounded-full bg-[#03045e] text-white hover:bg-opacity-90"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth="2"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M15 19l-7-7 7-7"
+            />
           </svg>
         </button>
       </div>
@@ -79,11 +102,22 @@ const Register = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <h1 className="text-center text-3xl font-bold mb-6" style={{ color: "#caf0f6" }}>SIM Card Registration</h1>
+          <h1
+            className="text-center text-3xl font-bold mb-6"
+            style={{ color: "#caf0f6" }}
+          >
+            SIM Card Registration
+          </h1>
 
           {/* Name Field */}
           <div className="mb-4">
-            <label htmlFor="name" className="block text-sm font-bold mb-1" style={{ color: "#caf0f6" }}>Name</label>
+            <label
+              htmlFor="name"
+              className="block text-sm font-bold mb-1"
+              style={{ color: "#caf0f6" }}
+            >
+              Name
+            </label>
             <input
               type="text"
               id="name"
@@ -99,7 +133,13 @@ const Register = () => {
 
           {/* Date of Birth Field */}
           <div className="mb-4">
-            <label htmlFor="dob" className="block text-sm font-bold mb-1" style={{ color: "#caf0f6" }}>Date of Birth</label>
+            <label
+              htmlFor="dob"
+              className="block text-sm font-bold mb-1"
+              style={{ color: "#caf0f6" }}
+            >
+              Date of Birth
+            </label>
             <input
               type="date"
               id="dob"
@@ -114,7 +154,13 @@ const Register = () => {
 
           {/* Passport Number Field */}
           <div className="mb-4">
-            <label htmlFor="passport" className="block text-sm font-bold mb-1" style={{ color: "#caf0f6" }}>Passport Number</label>
+            <label
+              htmlFor="passport"
+              className="block text-sm font-bold mb-1"
+              style={{ color: "#caf0f6" }}
+            >
+              Passport Number
+            </label>
             <input
               type="text"
               id="passport"
@@ -132,7 +178,11 @@ const Register = () => {
           <div className="mb-6 flex flex-col items-center sm:flex-row sm:justify-between">
             {capturedImage && (
               <div className="mb-4 sm:mb-0 sm:mr-6 flex justify-center">
-                <img src={capturedImage} alt="Captured" className="w-40 h-40 object-cover border border-gray-400 rounded-md shadow-md" />
+                <img
+                  src={capturedImage}
+                  alt="Captured"
+                  className="w-40 h-40 object-cover border border-gray-400 rounded-md shadow-md"
+                />
               </div>
             )}
             <button
@@ -141,6 +191,15 @@ const Register = () => {
               className="px-6 py-2 bg-[#03045e] text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 hover:scale-105 transition-all duration-200 ease-in-out"
             >
               Open Camera
+            </button>
+          </div>
+          <div className="mb-6 flex justify-center">
+            <button
+              type="button"
+              onClick={() => navigate("/card-payment")}
+              className="px-6 py-2 bg-[#03045e] text-white font-semibold rounded-lg shadow-md hover:bg-opacity-90 hover:scale-105 transition-all duration-200 ease-in-out"
+            >
+              Proceed to Pay
             </button>
           </div>
 

@@ -32,9 +32,9 @@ const CardPayment = () => {
 
     setLoading(true);
     try {
-      await axios.post("http://localhost:5000/api/payment", paymentDetails);
+      await axios.post("http://localhost:5000/api/card-payment", paymentDetails);
       alert("Payment successful!");
-      navigate("/success");
+      navigate("/register");
     } catch (error) {
       console.error(error);
       alert("Payment failed. Please try again.");
