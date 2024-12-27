@@ -27,7 +27,7 @@ const Home = () => {
     toast.success(`${pkg.name} package added to your SIM for ${pkg.validity}`, {
       position: "top-right",
       autoClose: 3000,
-      hideProgressBar: true,
+      hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
