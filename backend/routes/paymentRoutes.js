@@ -64,12 +64,12 @@ router.post('/',upload, async (req, res) => {
     if (!/^[0-9]{2}\/[0-9]{2}$/.test(expiryDate)) {
       return res.status(400).json({ error: 'Invalid expiry date' });
     }
-    const [month, year] = expiryDate.split('/').map(Number);
-    const currentDate = new Date();
-    const expiry = new Date(`20${year}`, month - 1);
-    if (expiry < currentDate) {
-      return res.status(400).json({ error: 'Card is expired' });
-    }
+    // const [month, year] = expiryDate.split('/').map(Number);
+    // const currentDate = new Date();
+    // const expiry = new Date(`20${year}`, month - 1);
+    // if (expiry < currentDate) {
+    //   return res.status(400).json({ error: 'Card is expired' });
+    // }
     if (!/^[0-9]{3}$/.test(cvv)) {
       return res.status(400).json({ error: 'Invalid CVV' });
     }
