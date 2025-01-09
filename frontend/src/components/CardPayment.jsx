@@ -42,7 +42,7 @@ const CardPayment = () => {
       formData.append("cvv", paymentDetails.cvv);
       formData.append("amount", paymentDetails.amount);
       await axios.post(
-        "http://localhost:5000/api/card-payment",
+        `${import.meta.env.VITE_BACKEND_URL}/card-payment`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
